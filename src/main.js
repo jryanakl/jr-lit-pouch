@@ -6,9 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import db from './db';
 import litLogo from './assets/lit.svg';
 import viteLogo from '/vite.svg';
+import { db } from './db.js';
+import { Buffer } from 'buffer';
+import process from 'process';
+console.log(`%cJrMain`, `font-size: 14px; color: blue`);
+window.Buffer = Buffer;
+window.process = process;
+// Use the db instance
+db.info()
+    .then((info) => {
+    console.log('Database info:', info);
+})
+    .catch((err) => {
+    console.error('Error accessing the database:', err);
+});
 /**
  * An example element.
  *
@@ -19,21 +32,22 @@ let JrMain = class JrMain extends LitElement {
     constructor() {
         super(...arguments);
         this.items = [];
-        /**
-         * Copy for the read the docs hint.
-         */
         this.docsHint = 'Click on the Vite and Lit logos to learn more';
-        /**
-         * The number of times the button has been clicked.
-         */
         this.count = 0;
     }
     async connectedCallback() {
         super.connectedCallback();
         // Fetch all items from the database
-        const result = await db.allDocs();
-        // Type 'row' explicitly to avoid 'any' type error
-        this.items = result.rows.map((row) => row.doc);
+        let result;
+        if (result) {
+            console.log('result', result);
+        }
+        if (this.items) {
+            console.log('items', this.items);
+        }
+        // Fetch all items from the database
+        result = await db.allDocs({ include_docs: true });
+        this.items = result.rows.map((row) => row?.doc ? row.doc : undefined);
     }
     render() {
         return html `
@@ -53,12 +67,12 @@ let JrMain = class JrMain extends LitElement {
           </button>
         </div>
         <p class="read-the-docs">${this.docsHint}</p>
-         <div>
-        <h2>Database Items</h2>
-        <ul>
-          ${this.items.map(item => html `<li>${item.name}: ${item.description}</li>`)}
-        </ul>
-      </div>
+        <div>
+          <h2>Database Items</h2>
+          <ul class="jr-main jr-list">
+            ${this.items.map(item => html `<li>${item.name}: ${item.description}</li>`)}
+          </ul>
+        </div>
       </section>
     `;
     }
@@ -80,9 +94,11 @@ JrMain.styles = css `
       will-change: filter;
       transition: filter 300ms;
     }
+
     .logo:hover {
       filter: drop-shadow(0 0 2em #646cffaa);
     }
+
     .logo.lit:hover {
       filter: drop-shadow(0 0 2em #325cffaa);
     }
@@ -95,6 +111,27 @@ JrMain.styles = css `
       color: #888;
     }
 
+    .jr-list {
+      list-style-type: square;
+      padding: 0;
+      margin: 0;
+    }
+
+    .jr-list li {
+      padding: 10px 15px;
+      margin: 5px 0;
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .jr-list li:hover {
+      background-color: #e0e0e0;
+      cursor: pointer;
+    }
+
     ::slotted(h1) {
       font-size: 3.2em;
       line-height: 1.1;
@@ -105,6 +142,7 @@ JrMain.styles = css `
       color: #646cff;
       text-decoration: inherit;
     }
+
     a:hover {
       color: #535bf2;
     }

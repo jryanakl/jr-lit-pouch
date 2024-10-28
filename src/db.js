@@ -1,7 +1,9 @@
 // src/db.ts
 import PouchDB from 'pouchdb-browser';
+console.log(`%cJrDb`, `font-size: 14px; color: blue`); // Add this line
+//debugger;
+// Initialize PouchDB
 const db = new PouchDB('my_database');
-
 // Dummy data
 const dummyData = [
     { _id: '1', name: 'Item 1', description: 'This is the first item' },
@@ -18,7 +20,6 @@ async function initializeData() {
         console.error('Error initializing data:', error);
     }
 }
-
 // Check if the data is already loaded
 async function setupDatabase() {
     const allDocs = await db.allDocs();
@@ -29,7 +30,11 @@ async function setupDatabase() {
         console.log('Database already initialized.');
     }
 }
-
 setupDatabase();
-
-export default db;
+export { db, PouchDB };
+// Add a log to verify
+console.log(`&cJrDb`, `font-size: 14px; color: blue`);
+console.log({
+    $ctrl: this,
+    db: db
+});
