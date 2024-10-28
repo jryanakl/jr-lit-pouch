@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Lit + Pouch + TS</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./src/index.css" />
+
+    <!-- Components -->
+    <script type="module" src="/src/db.ts"></script>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/logo.ts"></script>
+    <script type="module" src="/src/navbar.ts"></script>
+    <script type="module" src="/src/footer.ts"></script>
+  </head>
+  <body class="body">
+    <header class="header">
+      <jr-logo></jr-logo>
+    </header>
+    <nav class="nav">
+      <jr-navbar></jr-navbar>
+    </nav>
+    <main class="main">
+      <jr-main></jr-main>
+    </main>
+    <footer class="footer">
+      <jr-footer></jr-footer>
+    </footer>
+  </body>
+</html>
