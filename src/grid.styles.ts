@@ -1,13 +1,12 @@
-import { css } from 'lit'
+import { css } from 'lit';
 
-// Sharing styles
+// Sharing gridStyles
 export const gridStyles = css`
   .jr-grid__block {
     padding: 48px;
   }
 
   .jr-grid__block-sm {
-    //border: 1px solid red;
     border-bottom: 1px dashed gray;
     padding: 24px;
   }

@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import designServicesLogo from './assets/design-services-logo.svg';
 
 /**
@@ -8,10 +8,13 @@ import designServicesLogo from './assets/design-services-logo.svg';
  */
 @customElement('jr-logo')
 export class JrLogo extends LitElement {
-  static styles = css`
-    :host {
-    }
+  @property()
+  altText = `Design Services Logo`;
 
+  @property()
+  logoText = `JR Design System`;
+
+  static styles = css`
     .jr-logo {
       display: flex;
       flex-direction: row;
@@ -32,9 +35,9 @@ export class JrLogo extends LitElement {
     return html`
       <div class="jr-logo">
         <div class="jr-logo__logo">
-           <img src=${designServicesLogo} alt="Design Services Logo" />
+           <img src=${designServicesLogo} alt=${this.altText} />
         </div>&nbsp;
-        <p class="jr-logo__text">JR Design System</p>
+        <p class="jr-logo__text">${this.logoText}</p>
       </div>
       `;
   }

@@ -14,23 +14,51 @@ interface TreeNode {
 @customElement('jr-tree')
 export class JrTree extends LitElement {
   @property({ type: String })
-  treeLabel = 'My Tree List';
+  treeLabel = '';
 
-  static treeData: TreeNode[] = [
-    { label: 'Leaf 1' },
-    {
-      label: 'Leaf 2',
-      collapsed: true,
-      children: [
-        { label: 'Leaf 2, Child 1' },
-        { label: 'Leaf 2, Child 2' },
-        { label: 'Leaf 2, Child 3' },
-      ],
-    },
-    { label: 'Leaf 3' },
-  ];
+  @property({ type: Array })
+  treeData: TreeNode[] = [];
 
   static styles = css`
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 1rem; /* Adjust size as needed */
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    .chevron {
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.3s;
+      vertical-align: middle;
+    }
+
+    .chevron.collapsed {
+      transform: rotate(0deg);  /* Right-pointing */
+    }
+    
+    .chevron.open {
+      transform: rotate(0deg); /* Downward-pointing */
+    }
+    
+    .leaf-icon {
+      border: 1px solid var(--bk-color);
+      color: gray;
+      opacity: 0.6;
+      vertical-align: middle;
+    }
+    
     .jr-tree__list {
       list-style: none;
       margin: 0;
@@ -41,23 +69,8 @@ export class JrTree extends LitElement {
       padding-left: 1em;
     }
 
-    .chevron {
-      cursor: pointer;
-      width: 1em;
-      height: 1em;
-      margin-right: 0.5em;
-      transition: transform 0.3s;
-    }
-
-    .chevron.open {
-      transform: rotate(90deg);
-    }
-    
-    .leaf-icon {
-      margin-right: 0.5em;
-      color: gray;
-      font-size: 0.8em;
-      opacity: 0.6;
+    .jr-tree__node-label {
+      font-size: 0.9rem;
     }
   `;
 
@@ -72,11 +85,17 @@ export class JrTree extends LitElement {
         ${nodes.map(node => html`
           <li class="jr-tree__list__item">
             ${node.children ? html`
-              <span class="chevron ${node.collapsed ? 'collapsed' : 'open'}" @click="${() => this.toggleCollapse(node)}">
-                &#9654;
+              <span
+                class="material-icons chevron ${node.collapsed ? 'collapsed' : 'open'}"
+                @click="${() => this.toggleCollapse(node)}"
+                aria-hidden="true"
+              >
+                ${node.collapsed ? 'chevron_right' : 'expand_more'}
               </span>
-            ` : html`<span class="leaf-icon">•</span>`}
-            ${node.label}
+            ` : html`
+              <span class="material-icons leaf-icon" aria-hidden="true">fiber_smart_record</span>
+            `}
+            <span class="jr-tree__node-label">${node.label}</span>
             ${node.children && !node.collapsed ? this.renderTree(node.children) : null}
           </li>
         `)}
@@ -84,11 +103,12 @@ export class JrTree extends LitElement {
     `;
   }
 
+
   render(): TemplateResult {
     return html`
       <section aria-labelledby="tree-label">
         <h4 id="tree-label" class="jr-tree__label">${this.treeLabel}</h4>
-        ${this.renderTree(JrTree.treeData)}
+        ${this.renderTree(this.treeData)}
       </section>
     `;
   }

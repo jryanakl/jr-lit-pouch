@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import * as path from 'path';
 
 export default defineConfig({
   resolve: {
@@ -7,7 +8,7 @@ export default defineConfig({
       'events': 'events',
       'stream': 'stream-browserify',
       'buffer': 'buffer/',
-      'process': 'process/browser',// Ensure pouchdb resolves to pouchdb-browser
+      'process': 'process/browser',// Ensures pouchdb resolves to pouchdb-browser
       '@': '/src'
     }
   },
@@ -15,6 +16,8 @@ export default defineConfig({
     include: ['lit', 'pouchdb-browser', 'events', 'stream-browserify', 'buffer', 'process'],
   },
   build: {
+    outDir: 'dist', // Output directory for built files
+    emptyOutDir: true, // Clean the output directory before building
     rollupOptions: {
       external: ['events'], // Exclude Node.js modules
     },

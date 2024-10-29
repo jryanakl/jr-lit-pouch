@@ -8,12 +8,9 @@ import { customElement, property } from 'lit/decorators.js';
 @customElement('jr-button')
 export class JrButton extends LitElement {
   @property()
-  buttonText = 'Click me!';
+  buttonText = '';
 
   static styles = css`
-    :host {
-    }
-
     .jr-button {
       font-weight: bold;
       min-width: 130px;
@@ -23,18 +20,18 @@ export class JrButton extends LitElement {
     }
 
     .jr-button--rounded {
-      border: 2px solid #212529;
+      border: 2px solid var(--border-color);
       border-radius: 5px;
       outline: none;
     }
 
     .jr-button--black {
-      color: #fff;
-      background: #212529;
+      color: var(--white-color-soft);
+      background: var(--bk-color);
     }
 
     .jr-button--black:hover {
-      background: #fff;
+      background: var(--white-color);
       color: #212529;
       transition: all 0.3s ease;
     }

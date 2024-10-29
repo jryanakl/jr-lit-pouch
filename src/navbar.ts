@@ -14,11 +14,29 @@ export class JrNavbar extends LitElement {
     }
     
     .active {
-      //color: #666666;
-      background-color: #212529;
+      background-color: var(--bk-color);
+      color: var(--blue-color);
+      font-weight: bold;
     }
 
-    .jr-navbar {  
+    .material-icons {
+      display: inline-block;
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      /* Fallback if the font isn't loading */
+      font-feature-settings: 'liga';
+      -webkit-font-feature-settings: 'liga';
+    }
+
+    .jr-navbar {
+      margin: 0px 5px;
     }
 
     .jr-navbar__header {
@@ -33,30 +51,31 @@ export class JrNavbar extends LitElement {
     }
 
     .jr-navbar__list__link {
-      font-size: 14px;
-      padding: 4px;
       display: flex;
       align-items: center;
+      font-size: 14px;
+      padding: 8px;
     }
 
-    .material-icons {
-      font-family: 'Material Icons';
-      font-weight: normal;
-      font-style: normal;
-      display: inline-block;
-      line-height: 1;
-      text-transform: none;
-      letter-spacing: normal;
-      word-wrap: normal;
-      white-space: nowrap;
-      direction: ltr;
-      /* Fallback if the font isn't loading */
-      font-feature-settings: 'liga';
-      -webkit-font-feature-settings: 'liga';
+    .jr-navbar__list__link {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      padding: 8px;
     }
 
     .jr-navbar__list__link.active .material-icons {
-      color: #007bff; /* Highlight color for the active link */
+      color: var(--blue-color);
+    }
+    
+    .jr-navbar__list__link:hover {
+      background-color: var(--bk-color);
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    .jr-navbar__link-text {
+      margin-left: 0.25rem;
     }
   `
 
@@ -70,19 +89,19 @@ export class JrNavbar extends LitElement {
           <li>
             <a class="jr-navbar__list__link active">
               <span class="material-icons">chevron_right</span>
-              <span>Button</span>
+              <span class="jr-navbar__link-text">Button</span>
             </a>
           </li>
           <li>
             <a class="jr-navbar__list__link">
               <span class="material-icons">chevron_right</span>
-              <span>Table</span>
+              <span class="jr-navbar__link-text">Table</span>
             </a>
           </li>
            <li>
             <a class="jr-navbar__list__link">
               <span class="material-icons">chevron_right</span>
-              <span>Tree Menu</span>
+              <span class="jr-navbar__link-text">Tree Menu</span>
             </a>
           </li>
         </ul>

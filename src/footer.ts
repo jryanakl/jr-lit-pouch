@@ -6,18 +6,15 @@ import { customElement } from 'lit/decorators.js';
 export class JrLogo extends LitElement {
   static styles = css`
     :host {
-      //border: 1px dashed red;
       display: flex;
       flex-flow: row;
     }
 
     .jr-footer {
-      //border: 1px solid green;
       width: 90%
     }
 
     .jr-footer__logo {
-      //border: 1px dashed white;
       width: 60%
     }
   `

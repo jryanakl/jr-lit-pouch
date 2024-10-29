@@ -7,19 +7,13 @@ import { customElement, property } from 'lit/decorators.js';
  */
 @customElement('jr-table')
 export class JrTable extends LitElement {
-  @property()
-  buttonText = 'Click me!';
+  @property({ type: Array })
+  headers: string[] = [];
 
-  static headers = ['State', 'Electricity', 'Gas'];
-  static rows = [
-    ['Kansas', '9.41', '3.12'],
-    ['Iowa', '9.56', '3.68'],
-    ['Missouri', '9.10', '3.39']
-  ];
+  @property({ type: Array })
+  rows: Array<string[]> = [];
+
   static styles = css`
-    :host {
-    }
-
     .jr-table {
       width: 100%;
     }
@@ -34,7 +28,7 @@ export class JrTable extends LitElement {
 
     .jr-table__th-column {
       width: 33%;
-      background-color: #222;
+      background-color: var(--bk-color);
     }
   `
 
@@ -43,13 +37,15 @@ export class JrTable extends LitElement {
       <table class="jr-table">  
         <tbody class="jr-table__tbody">
           <tr class="jr-table__tr">
-            ${JrTable.headers.map(header => html`
-              <th class="jr-table__th jr-table__th-column" scope="col">${header}</th>
-            `)}
+            ${this.headers.map((header: string, i: number) =>
+      html`<th scope="col" key="${i}" class="jr-table__th jr-table__th-column">${header}</th>`
+    )}
           </tr>
-          ${JrTable.rows.map(row => html`
+          ${this.rows.map(row => html`
             <tr class="jr-table__tr">
-              ${row.map(cell => html`<td class="jr-table__td">${cell}</td>`)}
+              ${row.map((cell: string, i: number) =>
+      html`<td key="${i}" class="jr-table__td">${cell}</td>`
+    )}
             </tr>
           `)}
         </tbody>

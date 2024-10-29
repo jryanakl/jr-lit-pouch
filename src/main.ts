@@ -30,7 +30,6 @@ db.info()
 /**
  * JrMain LitElement
  *
- * @slot - This element has a slot
  * @csspart button - The button
  */
 @customElement('jr-main')
@@ -76,13 +75,13 @@ export class JrMain extends LitElement {
       }
 
       h1 {
-        color: #ffffff;
+        color: var(--white-color);
         font-size: 3rem;
         margin: 0 0 12px 0;
       }
 
       h2 {
-        border-bottom-color: #333;
+        border-bottom-color: var(--border-color);
         border-bottom-style: solid;
         border-bottom-width: 1px;
         padding-bottom: 16px;
@@ -113,41 +112,6 @@ export class JrMain extends LitElement {
         color: #888;
       }
 
-      .jr-list {
-        list-style-type: square;
-        padding: 0;
-        margin: 0;
-      }
-
-      .jr-list li {
-        padding: 10px 15px;
-        margin: 5px 0;
-        background-color: #f0f0f0;
-        color: #333;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-      }
-
-      .jr-list li:hover {
-        background-color: #e0e0e0;
-        cursor: pointer;
-      }
-
-      ::slotted(h1) {
-        font-size: 3.2em;
-        line-height: 1.1;
-      }
-
-      a {
-        font-weight: 500;
-        color: #646cff;
-        text-decoration: inherit;
-      }
-
-      a:hover {
-        color: #535bf2;
-      }
-
       button {
         border-radius: 8px;
         border: 1px solid transparent;
@@ -173,6 +137,7 @@ export class JrMain extends LitElement {
         a:hover {
           color: #747bff;
         }
+
         button {
           background-color: #f9f9f9;
         }
@@ -193,6 +158,13 @@ export class JrMain extends LitElement {
           <jr-app></jr-app>
         </div>
         <div class="jr-grid__block">
+          <h2>PouchDB</h2>
+          <p>Testing Dummy Database Items</p>
+          <ul class="jr-main jr-list">
+            ${this.items.map(item => html`<li>${item.name}: ${item.description}</li>`)}
+          </ul>
+        </div>
+        <div class="jr-grid__block">
           <h2>Tooling</h2>
           <p>Lit + TypeScript + PouchDB + Vite</p>
           <div>
@@ -204,17 +176,8 @@ export class JrMain extends LitElement {
             </a>
             <div>
               <p class="read-the-docs">${this.docsHint}</p>
-              <p>Testing slot</p>
-              <slot></slot>
             </div>
           </div>
-        </div>
-        <div class="jr-grid__block">
-          <h2>PouchDB</h2>
-          <p>Testing Dummy Database Items</p>
-          <ul class="jr-main jr-list">
-            ${this.items.map(item => html`<li>${item.name}: ${item.description}</li>`)}
-          </ul>
         </div>
       </section>
     `
