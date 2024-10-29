@@ -4,16 +4,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { Buffer } from 'buffer';
+import process from 'process';
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import litLogo from './assets/lit.svg';
 import viteLogo from '/vite.svg';
+import { gridStyles } from './grid.styles.js';
+import { RouterService } from './routing.service.js';
 import { db } from './db.js';
-import { Buffer } from 'buffer';
-import process from 'process';
 console.log(`%cJrMain`, `font-size: 14px; color: blue`);
 window.Buffer = Buffer;
 window.process = process;
+// Create and export the router instance
+export const router = new RouterService();
+console.log('router', router);
 // Use the db instance
 db.info()
     .then((info) => {
@@ -23,17 +28,17 @@ db.info()
     console.error('Error accessing the database:', err);
 });
 /**
- * An example element.
+ * JrMain LitElement
  *
  * @slot - This element has a slot
  * @csspart button - The button
  */
 let JrMain = class JrMain extends LitElement {
     constructor() {
-        super(...arguments);
+        super();
+        this.currentRoute = router.currentRoute;
         this.items = [];
         this.docsHint = 'Click on the Vite and Lit logos to learn more';
-        this.count = 0;
     }
     async connectedCallback() {
         super.connectedCallback();
@@ -52,23 +57,35 @@ let JrMain = class JrMain extends LitElement {
     render() {
         return html `
       <section class="jr-main">
-        <div>
-          <a href="https://vite.dev" target="_blank">
-            <img src=${viteLogo} class="logo" alt="Vite logo" />
-          </a>
-          <a href="https://lit.dev" target="_blank">
-            <img src=${litLogo} class="logo lit" alt="Lit logo" />
-          </a>
+        <div class="jr-grid__block">
+          <h1>JR Design System</h1>
+          <p>Accessible design system for building web experiences</p>
         </div>
-        <slot></slot>
-        <div class="card">
-          <button @click=${this._onClick} part="button">
-            count is ${this.count}
-          </button>
+        <div class="jr-grid__block">
+          <h2>Components</h2>
+          <p>Accessible components</p>
+          <jr-app></jr-app>
         </div>
-        <p class="read-the-docs">${this.docsHint}</p>
-        <div>
-          <h2>Database Items</h2>
+        <div class="jr-grid__block">
+          <h2>Tooling</h2>
+          <p>Lit + TypeScript + PouchDB + Vite</p>
+          <div>
+            <a href="https://lit.dev" target="_blank">
+              <img src=${litLogo} class="logo lit" alt="Lit logo" />
+            </a>
+            <a href="https://vite.dev" target="_blank">
+              <img src=${viteLogo} class="logo" alt="Vite logo" />
+            </a>
+            <div>
+              <p class="read-the-docs">${this.docsHint}</p>
+              <p>Testing slot</p>
+              <slot></slot>
+            </div>
+          </div>
+        </div>
+        <div class="jr-grid__block">
+          <h2>PouchDB</h2>
+          <p>Testing Dummy Database Items</p>
           <ul class="jr-main jr-list">
             ${this.items.map(item => html `<li>${item.name}: ${item.description}</li>`)}
           </ul>
@@ -76,116 +93,127 @@ let JrMain = class JrMain extends LitElement {
       </section>
     `;
     }
-    _onClick() {
-        this.count++;
-    }
 };
-JrMain.styles = css `
-    :host {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 2rem;
-      text-align: center;
-    }
+JrMain.styles = [
+    gridStyles,
+    css `
+      :host {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: left;
+      }
 
-    .logo {
-      height: 6em;
-      padding: 1.5em;
-      will-change: filter;
-      transition: filter 300ms;
-    }
+      h1 {
+        color: #ffffff;
+        font-size: 3rem;
+        margin: 0 0 12px 0;
+      }
 
-    .logo:hover {
-      filter: drop-shadow(0 0 2em #646cffaa);
-    }
+      h2 {
+        border-bottom-color: #333;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        padding-bottom: 16px;
+        font-size: 1.75rem;
+        margin: 0;
+      }
 
-    .logo.lit:hover {
-      filter: drop-shadow(0 0 2em #325cffaa);
-    }
+      .logo {
+        height: 6em;
+        padding: 1.5em;
+        will-change: filter;
+        transition: filter 300ms;
+      }
 
-    .card {
-      padding: 2em;
-    }
+      .logo:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+      }
 
-    .read-the-docs {
-      color: #888;
-    }
+      .logo.lit:hover {
+        filter: drop-shadow(0 0 2em #325cffaa);
+      }
 
-    .jr-list {
-      list-style-type: square;
-      padding: 0;
-      margin: 0;
-    }
+      .card {
+        padding: 2em;
+      }
 
-    .jr-list li {
-      padding: 10px 15px;
-      margin: 5px 0;
-      background-color: #f0f0f0;
-      color: #333;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
+      .read-the-docs {
+        color: #888;
+      }
 
-    .jr-list li:hover {
-      background-color: #e0e0e0;
-      cursor: pointer;
-    }
+      .jr-list {
+        list-style-type: square;
+        padding: 0;
+        margin: 0;
+      }
 
-    ::slotted(h1) {
-      font-size: 3.2em;
-      line-height: 1.1;
-    }
+      .jr-list li {
+        padding: 10px 15px;
+        margin: 5px 0;
+        background-color: #f0f0f0;
+        color: #333;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
 
-    a {
-      font-weight: 500;
-      color: #646cff;
-      text-decoration: inherit;
-    }
+      .jr-list li:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
 
-    a:hover {
-      color: #535bf2;
-    }
+      ::slotted(h1) {
+        font-size: 3.2em;
+        line-height: 1.1;
+      }
 
-    button {
-      border-radius: 8px;
-      border: 1px solid transparent;
-      padding: 0.6em 1.2em;
-      font-size: 1em;
-      font-weight: 500;
-      font-family: inherit;
-      background-color: #1a1a1a;
-      cursor: pointer;
-      transition: border-color 0.25s;
-    }
+      a {
+        font-weight: 500;
+        color: #646cff;
+        text-decoration: inherit;
+      }
 
-    button:hover {
-      border-color: #646cff;
-    }
-
-    button:focus,
-    button:focus-visible {
-      outline: 4px auto -webkit-focus-ring-color;
-    }
-
-    @media (prefers-color-scheme: light) {
       a:hover {
-        color: #747bff;
+        color: #535bf2;
       }
+
       button {
-        background-color: #f9f9f9;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding: 0.6em 1.2em;
+        font-size: 1em;
+        font-weight: 500;
+        font-family: inherit;
+        background-color: #1a1a1a;
+        cursor: pointer;
+        transition: border-color 0.25s;
       }
-    }
-  `;
+
+      button:hover {
+        border-color: #646cff;
+      }
+
+      button:focus,
+      button:focus-visible {
+        outline: 4px auto -webkit-focus-ring-color;
+      }
+
+      @media (prefers-color-scheme: light) {
+        a:hover {
+          color: #747bff;
+        }
+        button {
+          background-color: #f9f9f9;
+        }
+      }
+    `
+];
 __decorate([
     state()
 ], JrMain.prototype, "items", void 0);
 __decorate([
     property()
 ], JrMain.prototype, "docsHint", void 0);
-__decorate([
-    property({ type: Number })
-], JrMain.prototype, "count", void 0);
 JrMain = __decorate([
     customElement('jr-main')
 ], JrMain);

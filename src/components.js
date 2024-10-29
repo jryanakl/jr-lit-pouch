@@ -6,33 +6,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
-let JrLogo = class JrLogo extends LitElement {
+/**
+ * JrComponents LitElement
+ *
+ */
+let JrComponents = class JrComponents extends LitElement {
     render() {
         return html `
-      <div class="jr-footer">
-        <jr-logo class="jr-footer__logo"></jr-logo>
+      <div class="jr-components">
+        <dl class="jr-components__list">
+          <dt>Button</dt>
+          <dd>
+            <jr-button></jr-button>
+          </dd>
+          <dt>Table</dt>
+          <dd>
+            <jr-table></jr-table>
+          </dd>
+          <dt>Tree</dt>
+          <dd>
+            <jr-tree></jr-tree>
+          </dd>
+        </dl>
       </div>
       `;
     }
 };
-JrLogo.styles = css `
+JrComponents.styles = css `
     :host {
-      //border: 1px dashed red;
+      //border: 1px solid red;
+    }
+
+    .jr-components {
       display: flex;
-      flex-flow: row;
+      flex-direction: row;
+      align-items: center;
     }
 
-    .jr-footer {
-      //border: 1px solid green;
-      width: 90%
-    }
-
-    .jr-footer__logo {
-      //border: 1px dashed white;
-      width: 60%
+    .jr-components__list {
+      //margin-left: 10px;
     }
   `;
-JrLogo = __decorate([
-    customElement('jr-footer')
-], JrLogo);
-export { JrLogo };
+JrComponents = __decorate([
+    customElement('jr-components')
+], JrComponents);
+export { JrComponents };

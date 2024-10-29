@@ -6,25 +6,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import designServicesLogo from './assets/design-services-logo.svg';
+/**
+ * JrLogo LitElement
+ *
+ */
 let JrLogo = class JrLogo extends LitElement {
     render() {
         return html `
       <div class="jr-logo">
-        <code>JrLogo</code>
+        <div class="jr-logo__logo">
+           <img src=${designServicesLogo} alt="Design Services Logo" />
+        </div>&nbsp;
+        <p class="jr-logo__text">JR Design System</p>
       </div>
       `;
     }
 };
 JrLogo.styles = css `
     :host {
-      border: 1px solid red;
-      display: block;
-      height: 40px;
-      width: 60px;
     }
 
     .jr-logo {
-      border: 1px solid green;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .jr-logo__logo {
+      height: auto;
+    }
+
+    .jr-logo__text {
+      font-size: 18px;
+      font-weight: 600;
     }
   `;
 JrLogo = __decorate([
