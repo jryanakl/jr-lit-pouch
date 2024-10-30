@@ -30,26 +30,31 @@ export class JrTable extends LitElement {
       width: 33%;
       background-color: var(--bk-color);
     }
+    .container {
+      width: 100%;
+    }
   `
 
   render() {
     return html`
-      <table class="jr-table">  
-        <tbody class="jr-table__tbody">
-          <tr class="jr-table__tr">
-            ${this.headers.map((header: string, i: number) =>
+      <section class="container">
+        <table class="jr-table">  
+          <tbody class="jr-table__tbody">
+            <tr class="jr-table__tr">
+              ${this.headers.map((header: string, i: number) =>
       html`<th scope="col" key="${i}" class="jr-table__th jr-table__th-column">${header}</th>`
     )}
-          </tr>
-          ${this.rows.map(row => html`
-            <tr class="jr-table__tr">
-              ${row.map((cell: string, i: number) =>
+            </tr>
+            ${this.rows.map(row => html`
+              <tr class="jr-table__tr">
+                ${row.map((cell: string, i: number) =>
       html`<td key="${i}" class="jr-table__td">${cell}</td>`
     )}
-            </tr>
-          `)}
-        </tbody>
-      </table>
+              </tr>
+            `)}
+          </tbody>
+        </table>
+      </section>
     `;
   }
 }

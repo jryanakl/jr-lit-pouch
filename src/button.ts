@@ -12,16 +12,29 @@ export class JrButton extends LitElement {
 
   static styles = css`
     .jr-button {
-      font-weight: bold;
-      min-width: 130px;
-      height: 40px;
-      padding: 5px 10px;
+      background-color: #1a1a1a;
+      border: 1px solid var(--border-color);
       cursor: pointer;
+      font-family: inherit;
+      font-size: 1em;
+      font-weight: 500;
+      height: 40px;
+      min-width: 130px;
+      padding: 0.6em 1.2em;
+      transition: border-color 0.25s;
+    }
+
+    .jr-button:hover {
+      border-color: var(--blue-color-light);
+    }
+
+    .jr-button:focus,
+    .jr-button:focus-visible {
+      outline: 4px auto -webkit-focus-ring-color;
     }
 
     .jr-button--rounded {
-      border: 2px solid var(--border-color);
-      border-radius: 5px;
+      border-radius: 8px;
       outline: none;
     }
 
@@ -31,15 +44,17 @@ export class JrButton extends LitElement {
     }
 
     .jr-button--black:hover {
-      background: var(--white-color);
-      color: #212529;
-      transition: all 0.3s ease;
+      background: var(--box-shadow);
+      color: var(--white-color);
+      transition: all 0.4s ease;
     }
   `
 
   render() {
     return html`
-      <button class="jr-button jr-button--rounded jr-button--black">${this.buttonText}</button>
+      <button class="jr-button jr-button--rounded jr-button--black">
+        ${this.buttonText}
+      </button>
     `;
   }
 }

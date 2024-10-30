@@ -10,4 +10,8 @@ export const gridStyles = css`
     border-bottom: 1px dashed gray;
     padding: 24px;
   }
+
+  .jr-grid__block--no-pad-btm {
+    padding-bottom: 0;
+  }
 `;

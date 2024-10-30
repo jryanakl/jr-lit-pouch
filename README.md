@@ -1,8 +1,8 @@
-# JR Lit Pouch
+# JR Design System
 
-![JR Lit Pouch](/src/assets/lit.svg)
+![JR Design System (Lit + PouchDB)](/src/assets/jr-design-systems-screen.png)
 
-This project showcases code samples using Lit & PouchDB
+This project showcases code samples using Lit, TypeScript, PouchDB, & Vite
 
 ## Prereqs
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)

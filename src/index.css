@@ -2,11 +2,13 @@
   /* Color Palette */
   --bk-color: #242424;
   --bk-stage-color: #131313;
+  --blue-color: #007bff;
+  --blue-color-light: #646cff;
   --border-color: rgb(71, 71, 71);
   --box-shadow: rgb(0 0 0 / 10%);
-  --blue-color: #007bff;
   --white-color: rgba(255, 255, 255);
   --white-color-soft: rgba(255, 255, 255, 0.85);
+  --text-lighter: #888;
   
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,19 +26,13 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--blue-color-light);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
-}
-
-body {
-}
-
-code {
-  color: dimgrey!important;
+  /* color: #535bf2; */
+  color: var(--blue-color-light);
 }
 
 .body {
@@ -74,6 +70,9 @@ code {
 .main {
   background: var(--bk-stage-color);
   grid-area: main;
+  align-content: start;
+  display: inline-flex;
+  padding: 48px;
 }
 
 .footer {
@@ -84,9 +83,10 @@ code {
   padding: 8px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+.header-sub-text {
+  color: var(--text-lighter);
+}
+
+.jr-grid {
+  border: 1px solid green;
 }

@@ -1,7 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-
+/**
+ * JrFooter LitElement
+ *
+ */
 @customElement('jr-footer')
 export class JrLogo extends LitElement {
   static styles = css`

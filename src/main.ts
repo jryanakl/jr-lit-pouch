@@ -1,31 +1,15 @@
 import { Buffer } from 'buffer';
 import process from 'process';
-import { LitElement, css, html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
-import litLogo from './assets/lit.svg'
-import viteLogo from '/vite.svg';
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { gridStyles } from './grid.styles.js';
-
-import { RouterService } from './routing.service.js';
-import { db, ItemDoc } from './db.js';
-
-console.log(`%cJrMain`, `font-size: 14px; color: blue`);
+import Router from './router.js';
+import { JrIntroPage } from './components/intro-page.js';
 
 window.Buffer = Buffer;
 window.process = process;
-
-// Create and export the router instance
-export const router = new RouterService();
-console.log('router', router);
-
-// Use the db instance
-db.info()
-  .then((info) => {
-    console.log('Database info:', info);
-  })
-  .catch((err) => {
-    console.error('Error accessing the database:', err);
-  });
+window.app = {}
+window.app.router = new Router();
 
 /**
  * JrMain LitElement
@@ -34,34 +18,11 @@ db.info()
  */
 @customElement('jr-main')
 export class JrMain extends LitElement {
-  currentRoute: string = router.currentRoute;
-
-  @state() items: Array<any> = [];
-
   @property()
-  docsHint = 'Click on the Vite and Lit logos to learn more'
+  toolsSubHeader = 'Click on the Vite and Lit logos to learn more';
 
   constructor() {
     super();
-  }
-
-  async connectedCallback() {
-    super.connectedCallback();
-    // Fetch all items from the database
-
-    let result;
-
-    if (result) {
-      console.log('result', result);
-    }
-
-    if (this.items) {
-      console.log('items', this.items);
-    }
-
-    // Fetch all items from the database
-    result = await db.allDocs<ItemDoc>({ include_docs: true });
-    this.items = result.rows.map((row: any) => row?.doc ? row.doc! : undefined);
   }
 
   static styles = [
@@ -70,7 +31,6 @@ export class JrMain extends LitElement {
       :host {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 2rem;
         text-align: left;
       }
 
@@ -89,96 +49,31 @@ export class JrMain extends LitElement {
         margin: 0;
       }
 
-      .logo {
+      .jr-main__tool-logo {
         height: 6em;
         padding: 1.5em;
         will-change: filter;
         transition: filter 300ms;
       }
 
-      .logo:hover {
+      .jr-main__tool-logo:hover {
         filter: drop-shadow(0 0 2em #646cffaa);
       }
 
-      .logo.lit:hover {
+      .jr-main__tool-logo.lit:hover {
         filter: drop-shadow(0 0 2em #325cffaa);
       }
 
       .card {
         padding: 2em;
       }
-
-      .read-the-docs {
-        color: #888;
-      }
-
-      button {
-        border-radius: 8px;
-        border: 1px solid transparent;
-        padding: 0.6em 1.2em;
-        font-size: 1em;
-        font-weight: 500;
-        font-family: inherit;
-        background-color: #1a1a1a;
-        cursor: pointer;
-        transition: border-color 0.25s;
-      }
-
-      button:hover {
-        border-color: #646cff;
-      }
-
-      button:focus,
-      button:focus-visible {
-        outline: 4px auto -webkit-focus-ring-color;
-      }
-
-      @media (prefers-color-scheme: light) {
-        a:hover {
-          color: #747bff;
-        }
-
-        button {
-          background-color: #f9f9f9;
-        }
-      }
     `
   ];
 
   render() {
     return html`
-      <section class="jr-main">
-        <div class="jr-grid__block">
-          <h1>JR Design System</h1>
-          <p>Accessible design system for building web experiences</p>
-        </div>
-        <div class="jr-grid__block">
-          <h2>Components</h2>
-          <p>Accessible components</p>
-          <jr-app></jr-app>
-        </div>
-        <div class="jr-grid__block">
-          <h2>PouchDB</h2>
-          <p>Testing Dummy Database Items</p>
-          <ul class="jr-main jr-list">
-            ${this.items.map(item => html`<li>${item.name}: ${item.description}</li>`)}
-          </ul>
-        </div>
-        <div class="jr-grid__block">
-          <h2>Tooling</h2>
-          <p>Lit + TypeScript + PouchDB + Vite</p>
-          <div>
-            <a href="https://lit.dev" target="_blank">
-              <img src=${litLogo} class="logo lit" alt="Lit logo" />
-            </a>
-            <a href="https://vite.dev" target="_blank">
-              <img src=${viteLogo} class="logo" alt="Vite logo" />
-            </a>
-            <div>
-              <p class="read-the-docs">${this.docsHint}</p>
-            </div>
-          </div>
-        </div>
+      <section class="jr-grid">
+        <jr-intro-page></jr-intro-page>
       </section>
     `
   }
@@ -186,6 +81,7 @@ export class JrMain extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'jr-main': JrMain
+    'jr-main': JrMain,
+    'jr-intro-page': JrIntroPage
   }
 }

@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
-//import { router } from './main.js';
 
 /**
  * JrNavbar LitElement
@@ -50,25 +49,21 @@ export class JrNavbar extends LitElement {
       padding: 0;
     }
 
-    .jr-navbar__list__link {
+    .jr-navbar__li {
       display: flex;
       align-items: center;
-      font-size: 14px;
       padding: 8px;
     }
 
-    .jr-navbar__list__link {
-      display: flex;
-      align-items: center;
+    .jr-navbar__link {
       font-size: 14px;
-      padding: 8px;
     }
 
-    .jr-navbar__list__link.active .material-icons {
+    .jr-navbar__link.active .material-icons {
       color: var(--blue-color);
     }
     
-    .jr-navbar__list__link:hover {
+    .jr-navbar__link:hover {
       background-color: var(--bk-color);
       cursor: pointer;
       transition: all 0.5s ease;
@@ -79,29 +74,69 @@ export class JrNavbar extends LitElement {
     }
   `
 
+  // Add link event listeners after the initial render
+  firstUpdated() {
+    if (window?.app?.router) {
+      window.app.router.initialize(this.shadowRoot, `a.jr-navbar__link`);
+    }
+  }
+
   render() {
     return html`
       <div class="jr-navbar">
         <p class="jr-navbar__header">
+          Intro
+        </p>
+        <ul class="jr-navbar__list">
+          <li class="jr-navbar__li">
+            <span class="material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkIntro" href="/intro">
+              <span class="jr-navbar__link-text">Overview</span>
+            </a>
+          </li>
+        </ul>
+        <p class="jr-navbar__header">
           Components
         </p>
         <ul class="jr-navbar__list">
-          <li>
-            <a class="jr-navbar__list__link active">
-              <span class="material-icons">chevron_right</span>
-              <span class="jr-navbar__link-text">Button</span>
+          <li class="jr-navbar__li">
+            <span class="material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkComponents" href="/components">
+              <span class="jr-navbar__link-text">Tree Menu</span>
             </a>
           </li>
-          <li>
-            <a class="jr-navbar__list__link">
-              <span class="material-icons">chevron_right</span>
+          <li class="jr-navbar__li">
+            <span class="material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkComponents" href="/components">
               <span class="jr-navbar__link-text">Table</span>
             </a>
           </li>
-           <li>
-            <a class="jr-navbar__list__link">
-              <span class="material-icons">chevron_right</span>
-              <span class="jr-navbar__link-text">Tree Menu</span>
+          <li class="jr-navbar__li">
+            <span class="material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkComponents" href="/components">
+              <span class="jr-navbar__link-text">Button</span>
+            </a>
+          </li>
+        </ul>
+        <p class="jr-navbar__header">
+          Data
+        </p>
+        <ul class="jr-navbar__list">
+          <li class="jr-navbar__li">
+            <span class="material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkData" href="/data">
+              <span class="jr-navbar__link-text">PouchDB</span>
+            </a>
+          </li>
+        </ul>
+        <p class="jr-navbar__header">
+          Tooling
+        </p>
+        <ul class="jr-navbar__list">
+          <li class="jr-navbar__li">
+            <span class="jr-navbar__link-icon material-icons">chevron_right</span>
+            <a class="jr-navbar__link" id="linkTooling" href="/tooling">
+              <span class="jr-navbar__link-text">About</span>
             </a>
           </li>
         </ul>
