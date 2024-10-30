@@ -2,9 +2,12 @@ import { Buffer } from 'buffer';
 import process from 'process';
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { gridStyles } from './grid.styles.js';
-import Router from './router.js';
-import { JrIntroPage } from './components/intro-page.js';
+import { gridStyles } from './ui/grid.styles.js';
+import Router from  './state/router.js'
+import { JrIntroPage } from './pages/intro-page.js';
+import { JrDataPage } from './pages/data-page.js';
+import { JrComponentsPage } from './pages/components-page.js';
+import { JrToolingPage } from './pages/tooling-page.js';
 
 window.Buffer = Buffer;
 window.process = process;
@@ -82,6 +85,9 @@ export class JrMain extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jr-main': JrMain,
-    'jr-intro-page': JrIntroPage
+    'jr-intro-page': JrIntroPage,
+    'jr-data-page': JrDataPage,
+    'jr-components-page': JrComponentsPage,
+    'jr-tooling-page': JrToolingPage,
   }
 }

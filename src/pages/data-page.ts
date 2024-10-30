@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { db, ItemDoc } from '../db.js';
+import { db, ItemDoc } from '../data/db.js';
 
 /**
  * JrDataPage LitElement

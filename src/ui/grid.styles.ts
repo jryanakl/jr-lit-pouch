@@ -7,6 +7,7 @@ export const gridStyles = css`
   }
 
   .jr-grid__block-sm {
+    min-height: 200px;
     border-bottom: 1px dashed gray;
     padding: 24px;
   }

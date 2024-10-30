@@ -1,8 +1,9 @@
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-interface TreeNode {
+export interface TreeNode {
   label: string;
+  id: string;
   collapsed?: boolean;
   children?: TreeNode[];
 }
@@ -59,6 +60,10 @@ export class JrTree extends LitElement {
       vertical-align: middle;
     }
     
+    .jr-tree {
+      font-size: 14px;
+    }
+
     .jr-tree__list {
       list-style: none;
       margin: 0;
@@ -72,23 +77,38 @@ export class JrTree extends LitElement {
     .jr-tree__node-label {
       font-size: 0.9rem;
     }
+
+    .jr-tree__list__item:hover {
+      background-color: var(--box-shadow);
+    }
   `;
 
-  private toggleCollapse(node: { collapsed?: boolean; children?: Array<any> }) {
+  private toggleCollapse(node: TreeNode) {
     node.collapsed = !node.collapsed;
     this.requestUpdate();
   }
 
+  private handleKeydown(event: KeyboardEvent, node: TreeNode) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleCollapse(node);
+    }
+  }
+
   private renderTree(nodes: TreeNode[]): TemplateResult {
     return html`
-      <ul class="jr-tree__list">
+      <ul class="jr-tree__list" role="tree">
         ${nodes.map(node => html`
-          <li class="jr-tree__list__item">
+          <li class="jr-tree__list__item" role="treeitem" aria-expanded="${!node.collapsed}">
             ${node.children ? html`
               <span
                 class="material-icons chevron ${node.collapsed ? 'collapsed' : 'open'}"
                 @click="${() => this.toggleCollapse(node)}"
+                @keydown="${(event: KeyboardEvent) => this.handleKeydown(event, node)}"
                 aria-hidden="true"
+                role="button"
+                tabindex="0"
+                aria-controls="${node.id}"
               >
                 ${node.collapsed ? 'chevron_right' : 'expand_more'}
               </span>
@@ -103,8 +123,11 @@ export class JrTree extends LitElement {
     `;
   }
 
-
   render(): TemplateResult {
+    if (this.treeData.length === 0) {
+      return html`<p>No items available in the tree.</p>`;
+    }
+
     return html`
       <section aria-labelledby="tree-label">
         <h4 id="tree-label" class="jr-tree__label">${this.treeLabel}</h4>

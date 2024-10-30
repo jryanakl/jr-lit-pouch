@@ -25,7 +25,7 @@ export class JrToolingPage extends LitElement {
             <img src=${viteLogo} class="jr-main__tool-logo" alt="Vite logo" />
           </a>
           <div>
-            <p class="header-sub-text">${this.toolsSubHeader}</p>
+            <p>${this.toolsSubHeader}</p>
           </div>
         </div>
       </section>

@@ -1,0 +1,98 @@
+:root {
+  /* Colors */
+  --background-color: #242424;                  /* Main Background */
+  --stage-background-color: #131313;            /* Stage/Section Background */
+  --primary-blue: #007bff;                      /* Primary Button Color */
+  --light-blue: #646cff;                        /* Lighter Button Color */
+  --default-border-color: rgb(71, 71, 71);      /* Standard Border */
+  --shadow-color: rgb(0 0 0 / 10%);             /* Shadow Color */
+  --color-white: rgba(255, 255, 255, 1);        /* Base White */
+  --soft-white: rgba(255, 255, 255, 0.85);      /* Softened White */
+
+  /* Typography */
+  --base-font-size: 14px;                        /* Standard Font Size */
+  --base-line-height: 1.5;                       /* Standard Line Height */
+  --text-color: #333;                          /* Primary Text Color */
+  --light-text-color: #888;                    /* Lightened Text Color */
+  
+  background-color: var(--background-color);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+
+  color-scheme: light dark;
+  color: var(--soft-white);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--primary-blue);
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--light-blue);
+}
+
+p {
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  color: var(--text-color);
+  margin: 0;
+}
+
+.body {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav main"
+    "footer footer";
+  grid-template-columns: max-content auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+  height: 100vh;
+}
+
+.header {
+  grid-area: header;
+  border-bottom-color: var(--default-border-color);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 0px 24px;
+  border-bottom: 1px solid var(--default-border-color);
+  box-sizing: border-box;
+  box-shadow: 0 1px 5px 0 var(--box-shadow);
+}
+
+.nav {
+  background: var(--background-color);
+  border-right-color: var(--default-border-color);
+  border-right-style: solid;
+  border-right-width: 1px;
+  grid-area: nav;
+  padding: 10px;
+}
+
+.main {
+  background: var(--stage-background-color);
+  grid-area: main;
+  align-content: start;
+  display: inline-flex;
+  padding: 48px;
+}
+
+.main > :first-child {
+  width: 100%;
+}
+
+.footer {
+  grid-area: footer;
+  border-top-color: var(--default-border-color);
+  border-top-style: solid;
+  border-top-width: 1px;
+  padding: 8px;
+}
+

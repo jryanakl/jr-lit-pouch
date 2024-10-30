@@ -13,8 +13,8 @@ export class JrNavbar extends LitElement {
     }
     
     .active {
-      background-color: var(--bk-color);
-      color: var(--blue-color);
+      background-color: var(--background-color);
+      color: var(--primary-blue);
       font-weight: bold;
     }
 
@@ -60,11 +60,10 @@ export class JrNavbar extends LitElement {
     }
 
     .jr-navbar__link.active .material-icons {
-      color: var(--blue-color);
+      color: var(--light-blue);
     }
     
     .jr-navbar__link:hover {
-      background-color: var(--bk-color);
       cursor: pointer;
       transition: all 0.5s ease;
     }
