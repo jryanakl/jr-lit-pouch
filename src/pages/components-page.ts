@@ -4,6 +4,7 @@ import { codeStyles } from '../ui/styles/code.styles.js';
 import { gridStyles } from '../ui/styles/grid.styles.js';
 import { typographyStyles } from '../ui/styles/typography.styles.js';
 import { TreeNode } from '../ui/tree.js';
+import { JrTableData } from '../ui/table/model/table.types.js';
 
 /**
  * JrComponentsPage LitElement
@@ -11,12 +12,16 @@ import { TreeNode } from '../ui/tree.js';
  */
 @customElement('jr-components-page')
 export class JrComponentsPage extends LitElement {
-  tableData = {
-    headers: ['State', 'Electricity', 'Gas'],
+  jrTableData: JrTableData = {
+    columns: [
+      { index: 0, key: 'name', title: 'Name', isSortable: true },
+      { index: 1, key: 'value', title: 'Value', isSortable: true },
+      { index: 2, key: 'date', title: 'Date', isSortable: true },
+    ],
     rows: [
-      ['Kansas', '9.41', '3.12'],
-      ['Iowa', '9.56', '3.68'],
-      ['Missouri', '9.10', '3.39']
+      { name: "Item A", value: 10, date: new Date('2024-01-01') },
+      { name: "Item B", value: 5, date: new Date('2024-02-01') },
+      { name: "Item C", value: 15, date: new Date('2024-03-01') },
     ],
   };
 
@@ -52,16 +57,19 @@ export class JrComponentsPage extends LitElement {
         margin-top: 0;
       }
 
-      dl {
+      ul.jr-grid__list {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
         font-size: var(--base-font-size);
         margin: 20px 0;
       }
 
-      dt {
+      .jr-grid__lis p {
         margin: 10px 0;
       }
 
-      dd {
+      .jr-grid__lis li {
         margin: 0 0 20px 0;
       }
 
@@ -82,63 +90,59 @@ export class JrComponentsPage extends LitElement {
   render() {
     return html`
       <section id="jr-components-page" class="jr-components-page">
-        <h2>Components</h2>
-        <p>Accessible components</p>
-        <article id="jr-components-page__breadcrumb" class="jr-grid__block-sm">
-          <h3 id="tree-header" class="no-margin--top">Breadcrumb</h3>
-          <jr-breadcrumb></jr-breadcrumb>
+        <h2>Basic Components</h2>
+        <p>These are basic component examples</p>
+        <article id="jr-components-page__table" class="jr-grid__block-lg jr-grid__block--sm-pad-top">
+          <h3 id="table-header" class="no-margin--top">
+            Table
+          </h3>
+          <jr-table .columns=${this.jrTableData.columns}
+                    .rows=${this.jrTableData.rows}
+                    footerContent="JR Designs">
+          </jr-table>
         </article>
-        <article id="jr-components-page__card" class="jr-grid__block-sm">
-          <h3 id="tree-card" class="no-margin--top">Card</h3>
+        <article id="jr-components-page__card" class="jr-grid__block-lg">
+          <h3 id="tree-card" class="no-margin--top">
+            Card
+          </h3>
           <ul class="jr-components-page__cards">
-            <li>
-              <jr-card></jr-card>
-              <!-- <code>This is a <p class="jr-code__html__p">Code Test</p></code> -->
-            </li>
-            <li>
-              <jr-card></jr-card>
-            </li>
-            <li>
-              <jr-card></jr-card>
-            </li>
+            <li><jr-card></jr-card></li>
+            <li><jr-card></jr-card></li>
+            <li><jr-card></jr-card></li>
           </ul>
         </article>
-        <article id="jr-components-page__tree" class="jr-grid__block-sm">
-          <h3 id="tree-header" class="no-margin--top">Tree</h3>
+        <article id="jr-components-page__tree" class="jr-grid__block-md">
+          <h3 id="tree-header">Tree</h3>
           <jr-tree .treeData="${this.treeData}"></jr-tree>
         </article>
-        <article id="jr-components-page__table" class="jr-grid__block-sm">
-          <h3 id="table-header" class="no-margin--top">Basic Table</h3>
-          <jr-table .headers="${this.tableData.headers}" .rows="${this.tableData.rows}"></jr-table>
-        </article>
-        <article id="jr-components-page__button" class="jr-grid__block-sm">
+        <article id="jr-components-page__button" class="jr-grid__block-md">
           <h3 id="button-header">Button</h3>
-          <dl class="jr-grid__list">
-            <dt>Default</dt>
-            <dd>
+          <ul class="jr-grid__list">
+            <li>
+              <p>Default</p>
               <jr-button buttonRole="button" buttonType="button" aria-label="Default"></jr-button>
-            </dd>
-            <dt>Round</dt>
-            <dd>
+            </li>
+            <li>
+              <p>Round</p>
               <jr-button .rounded="${true}" buttonRole="button" aria-label="Round" buttonType="button" buttonText="Round"></jr-button>
-            </dd>
-            <dt>Disabled</dt>
-            <dd>
+            </li>
+            <li>
+              <p>Disabled</p>
               <jr-button .disabled="${true}" buttonRole="button" aria-label="Disable the action" buttonType="button">
                 Disabled
               </jr-button>
-            </dd>
-            <dt>Small</dt>
-            <dd>
+            </li>
+            <li>
+              <p>Small</p>
               <jr-button theme="sm" aria-label="Default" buttonRole="button" buttonType="button">
                 Small
               </jr-button>
               <jr-button .rounded="${true}" theme="sm" aria-label="Default" buttonRole="button" buttonType="button">
                 Rounded
               </jr-button>
-            </dd>
-          </dl>
-      </article>
+            </li>
+          </ul>
+        </article>
       </section>
       `;
   }

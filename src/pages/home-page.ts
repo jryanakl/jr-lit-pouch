@@ -31,7 +31,7 @@ export class JrHomePage extends LitElement {
           <h2>JR Design System & Labs</h2>
           <h3>An attempt at a Design System for building web experiences</h3>
         </article>
-        <article>
+        <article style="display: none;">
           <h4>Release Notes:</h4>
           <ul class="jr-home-page__list">
             <li class="jr-home-page__list-item">

@@ -8,12 +8,13 @@ import designServicesLogo from '../assets/design-services-logo.svg';
 @customElement('jr-logo')
 export class JrLogo extends LitElement {
   @property({ type: String }) altText = 'Design Services Logo';
-  @property({ type: String }) logoText = `JR Design System & Labs`;
+  @property({ type: String }) logoText = `  JR Design System & Labs`;
 
   static styles = css`
     .jr-logo {
       display: flex;
       flex-direction: row;
+      gap: 0.35rem;
       align-items: center;
     }
 
@@ -31,10 +32,14 @@ export class JrLogo extends LitElement {
     return html`
       <div class="jr-logo" role="img" aria-label="${this.logoText}">
         <div class="jr-logo__logo" aria-hidden="true">
-          <img src=${designServicesLogo} alt=${this.altText} style="filter: invert(71%) sepia(85%) saturate(498%) hue-rotate(157deg) brightness(96%) contrast(101%);" />
+          <img src=${designServicesLogo}
+               alt=${this.altText}
+               style="filter: invert(71%) sepia(85%) saturate(498%) hue-rotate(157deg) brightness(96%) contrast(101%);" />
         </div>
         <div class="jr-logo__text">
-          <slot>${this.logoText}</slot>
+          <slot>
+            ${this.logoText}
+          </slot>
         </div>
       </div>
     `;

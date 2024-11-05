@@ -11,8 +11,22 @@ export const gridStyles = css`
     padding: 24px;
   }
 
+  .jr-grid__block-md {
+    border-bottom: 0.5px dashed var(--border-color-default);
+    padding: 48px 24px;
+  }
+
+  .jr-grid__block-lg {
+    border-bottom: 0.5px dashed var(--border-color-default);
+    padding: 96px 24px;
+  }
+
   .jr-grid__block--no-pad-btm {
     padding-bottom: 0;
+  }
+
+  .jr-grid__block--sm-pad-top {
+    padding-top: 24px;
   }
 
   .jr-grid__list {

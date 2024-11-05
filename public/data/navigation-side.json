@@ -12,21 +12,13 @@
     ]
   },
   {
-    "header": "Components",
+    "header": "Basic Components",
     "items": [
       {
         "icon": "chevron_right",
-        "id": "jr-navigation__breadcrumb",
-        "label": "Breadcrumb",
-        "route_view_selector": "jr-components-page__breadcrumb",
-        "scroll": true,
-        "url": "/components"
-      },
-      {
-        "icon": "chevron_right",
-        "id": "jr-navigation__button",
-        "label": "Button",
-        "route_view_selector": "jr-components-page__button",
+        "id": "jr-navigation__table",
+        "label": "Table",
+        "route_view_selector": "jr-components-page__table",
         "scroll": true,
         "url": "/components"
       },
@@ -40,17 +32,17 @@
       },
       {
         "icon": "chevron_right",
-        "id": "jr-navigation__table",
-        "label": "Table",
-        "route_view_selector": "jr-components-page__table",
+        "id": "jr-navigation__tree",
+        "label": "Tree Menu",
+        "route_view_selector": "jr-components-page__tree",
         "scroll": true,
         "url": "/components"
       },
       {
         "icon": "chevron_right",
-        "id": "jr-navigation__tree",
-        "label": "Tree Menu",
-        "route_view_selector": "jr-components-page__tree",
+        "id": "jr-navigation__button",
+        "label": "Button",
+        "route_view_selector": "jr-components-page__button",
         "scroll": true,
         "url": "/components"
       }

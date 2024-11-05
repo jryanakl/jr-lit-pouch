@@ -15,6 +15,7 @@
 
     <!-- State -->
     <script type="module" src="/src/state/router.ts"></script>
+    <script type="module" src="/src/state/route-view.ts"></script>
 
     <!-- Utils -->
     <script type="module" src="/src/utils/logger.ts"></script>
@@ -22,7 +23,7 @@
     <!-- App Main -->
     <script type="module" src="/src/main.ts"></script>
 
-    <!-- UI Components -->
+    <!-- UI Components - Small-->
     <script type="module" src="/src/ui/audio.ts"></script>
     <script type="module" src="/src/ui/breadcrumb.ts"></script>
     <script type="module" src="/src/ui/button.ts"></script>
@@ -31,10 +32,11 @@
     <script type="module" src="/src/ui/logo.ts"></script>
     <script type="module" src="/src/ui/navigation/navigation.ts"></script>
     <script type="module" src="/src/ui/navigation/navigation-list.ts"></script>
+    <script type="module" src="/src/ui/table/table.ts"></script>
+    <script type="module" src="/src/ui/table/directives/table-head.ts"></script>
 
-    <script type="module" src="/src/ui/table.ts"></script>
     <script type="module" src="/src/ui/tree.ts"></script>
-
+  
     <!-- Page Components -->
     <script type="module" src="/src/pages/components-page.ts"></script>
     <script type="module" src="/src/pages/crazy-page.ts"></script>
@@ -47,7 +49,7 @@
   <body>
     <header class=".header">
       <jr-logo></jr-logo>
-      <jr-navigation theme="top"></jr-navigation>
+      <jr-navigation theme="top" style="display: none;"></jr-navigation>
     </header>
     <jr-navigation theme="side"></jr-navigation>
     <main>

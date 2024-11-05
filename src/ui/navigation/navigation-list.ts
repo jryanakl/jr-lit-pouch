@@ -68,6 +68,8 @@ export class JrNavigationList extends LitElement {
     return html`
       <a class="jr-navigation-list__link"
          id="${ifDefined(childNode?.id)}"
+         data-label="${ifDefined(childNode?.label)}"
+         data-link="${ifDefined(childNode?.link)}"
          data-route-view-selector="${ifDefined(childNode?.route_view_selector)}"
          data-scroll="${ifDefined(childNode?.scroll)}"
          data-url="${ifDefined(childNode?.url)}"
@@ -107,7 +109,7 @@ export class JrNavigationList extends LitElement {
     }
 
     return html`
-      <ul class="jr-navigation-list jr-navigation--theme-${this.theme}">
+      <ul class="jr-navigation-list jr-navigation--theme-${this.theme}" style="position: fixed;">
         ${
           this.navigationData.map((node) =>
             this.renderListItem(node)

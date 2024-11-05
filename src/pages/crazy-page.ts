@@ -28,10 +28,10 @@ export class JrCrazyPage extends LitElement {
     return html`
       <section id="jr-crazy-page" class="jr-crazy-page">
         <article id="jr-crazy-page">
-          <h2>Crazy Page</h2>
-          <h3>This is the Crazy Page</h3>
+          <h2>Let's Get Crazy!</h2>
+          <h3>Coming Soon!</h3>
         </article>
-        <article class="jr-crazy-page__options">
+        <!-- <article class="jr-crazy-page__options">
           <h4>Please choose from the following options</h4>
           <dl class="jr-grid__list">
             <dt>Default</dt>
@@ -40,7 +40,7 @@ export class JrCrazyPage extends LitElement {
             </dd>
             <dt>Make this site crazy</dt>
           </dl>
-        </article>
+        </article> -->
       </section>
     `;
   }

@@ -1,12 +1,17 @@
-import { NavigationDataRootNode } from '../ui/navigation/navigation.js';
+import { INavigationDataChildNode } from '../ui/navigation/navigation.js';
 import JrLogger from '../utils/logger.js';
+import { JrRouteViewComponent } from './route-view.js';
 
 export default class Router {
-  private url = window.location.pathname;
+  private navigationNode: INavigationDataChildNode = {};
 
   constructor() {
+    JrLogger.logClass('Router');
+    JrLogger.logMethod('constructor', {$ctrl: this, window: window});
+
     window.addEventListener("popstate", (event) => {
-      this.navigate(event.state?.route || "/", false);
+      this.navigate(this.navigationNode, event, true);
+      // this.navigate(event.state?.route || "/", false);
     });
   }
 
@@ -14,12 +19,22 @@ export default class Router {
     event.preventDefault();
 
     const anchorElement: HTMLAnchorElement = (event?.currentTarget as HTMLAnchorElement);
-    const url = anchorElement.getAttribute('data-url');
-    const route_view_selector = anchorElement.getAttribute('data-route-view-selector');
-    const scroll: boolean = anchorElement.getAttribute('data-scroll') === "true" ? true : false;
+    const dataset = anchorElement.dataset;
+    const navigationNode: INavigationDataChildNode = {
+      id: anchorElement?.id,
+      label: dataset?.label,
+      link: dataset?.link,
+      route_view_selector: dataset?.routeViewSelector,
+      scroll: !!dataset?.scroll,
+      url: dataset?.url,
+    };
 
-    if (route_view_selector) {
-      this.switchRoute(url, route_view_selector, scroll);
+    if (navigationNode) {
+      this.switchRoute(navigationNode);
+    } else {
+      JrLogger.logError('No url && route_view_selector', {
+        navigationNode: navigationNode
+      });
     }
   }
   
@@ -29,91 +44,40 @@ export default class Router {
     }
 
     if (window?.app?.router) {
-      this.navigate(this.url, false);
+      JrLogger.logMethod('initialize() if (window?.app?.router', {
+        navigationNode: this.navigationNode,
+        window: {
+          app: window?.app
+        }
+      });
+      // this.navigate(this.url, false);
     } else {
       console.error("Router instance does not exist on window.app");
     }
   }
 
-  navigate(url: string, addToHistory = true) {
-    JrLogger.logMethod('navigate()', url);
+  // navigate(url: string, addToHistory = true) {
+  navigate(navigationNode: INavigationDataChildNode, event: Event, addToHistory = true) {
+    JrLogger.logMethod('navigate', {
+      navigationNode: navigationNode,
+      event: event
+    });
     
     if (addToHistory) {
-      history.pushState({ route: url }, "", url);
+      history.pushState({ route: navigationNode?.url }, "", navigationNode?.url);
     }
 
-    this.switchRoute(url);
-    this.url = url;
-  }
-
-  private createRouteViewElement(url: string): HTMLElement {
-    let routeViewElement: HTMLElement;
-  
-    switch (url) {
-      case "/":
-      case "/home":
-        routeViewElement = document.createElement("jr-home-page");
-        break;
-      case "/crazy":
-        routeViewElement = document.createElement("jr-crazy-page");
-        break;
-      case "/components":
-        routeViewElement = document.createElement("jr-components-page");
-        break;
-      case "/data":
-        routeViewElement = document.createElement("jr-data-page");
-        break;
-      case "/tooling":
-        routeViewElement = document.createElement("jr-tooling-page");
-        break;
-      case "/web-apis":
-        routeViewElement = document.createElement("jr-web-apis-page");
-        break;
-      default:
-        if (url.startsWith("/jr-")) {
-          routeViewElement = document.createElement("section");
-          routeViewElement.dataset.productId = url.split("-").pop() || "";
-        } else {
-          routeViewElement = document.createElement("aside");
-        }
-        break;
-    }
-  
-    return routeViewElement;
+    this.navigationNode = navigationNode;
   }
   
-  private switchRoute(url: any, route_view_selector: string = '/', scroll: boolean = false) {
-    const mainElement = document.querySelector("main");
-
-    if (mainElement) {
-      mainElement.innerHTML = "";
-      const routeViewElement: HTMLElement = this.createRouteViewElement(url);
-      
-      if (routeViewElement) {
-        mainElement.appendChild(routeViewElement);
-      }
-
-      if (scroll) {
-        this.scrollToRouteView(route_view_selector, scroll);
-      } else {
-        window.scrollTo(0, 0);
-      }
-    }
-  }
-
-  private scrollToRouteView(route_view_selector: string, scroll?: boolean) {
-    if (scroll && route_view_selector) {
-      const routeViewElement = document.getElementById(route_view_selector);
-
-      if (routeViewElement) {
-        const yOffset = -80; // Adjust for any fixed headers, if necessary
-        const y = routeViewElement.getBoundingClientRect().top + window.scrollY + yOffset;
-        
-        window.scrollTo({
-          top: y,
-          behavior: 'smooth'
-        });
-      }
+  private switchRoute(navigationNode: INavigationDataChildNode) {
+    const mainElement = document.querySelector('jr-main')?.shadowRoot as ShadowRoot;
+    const routeViewElement = mainElement?.querySelector('jr-route-view');
+    
+    if (routeViewElement?.navigationNode) {      
+      routeViewElement.navigationNode = navigationNode;     
+    } else {
+      JrLogger.logError('jr-route-view component not found.');
     }
   }
 }

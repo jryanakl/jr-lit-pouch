@@ -9,7 +9,10 @@ export default defineConfig({
       'stream': 'stream-browserify',
       'buffer': 'buffer/',
       'process': 'process/browser',// Ensures pouchdb resolves to pouchdb-browser
-      '@': '/src'
+      '@': '/src',
+      '@jr-state': '/src/state',
+      '@jr-ui': '/src/ui',
+      '@jr-utils': '/src/utils'
     }
   },
   optimizeDeps: {

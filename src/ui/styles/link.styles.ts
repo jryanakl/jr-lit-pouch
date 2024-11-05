@@ -17,4 +17,12 @@ export const linkStyles = css`
     color: var(--dark-blue);
     text-decoration: underline;
   }
+
+  .jr-clickable {
+    cursor: pointer;
+   }
+
+  .jr-hidden {
+    visibility: hidden;
+  }
 `;

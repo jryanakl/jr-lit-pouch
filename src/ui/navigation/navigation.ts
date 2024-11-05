@@ -6,7 +6,7 @@ export interface INavigationDataChildNode {
   icon?: string
   id?: string;
   label?: string;
-  link: string;
+  link?: string;
   route_view_selector?: string;
   scroll?: boolean;
   url?: string;
@@ -26,15 +26,6 @@ import { typographyStyles } from '../styles/typography.styles';
 
 @customElement('jr-navigation')
 export class JrNavigation extends LitElement {
-  public styles: any[] = [typographyStyles, linkStyles,
-    css`
-      .jr-navigation {
-        border: 1px solid orange;
-        margin: 0px 5px;
-      }
-    `
-  ];
-
   jsonPath: string = '';
   
   @property({type: Array})
@@ -42,6 +33,10 @@ export class JrNavigation extends LitElement {
 
   @property({type: String})
   theme: 'side' | 'top' = 'side';
+
+  styles: any[] = [typographyStyles, linkStyles,
+    css``
+  ];
 
   constructor() {
     super();
@@ -59,14 +54,14 @@ export class JrNavigation extends LitElement {
     const jsonPath: string = this?.theme === 'side' ? './data/navigation-side.json': `./data/navigation-top.json`;
     const response = await fetch(jsonPath);
 
-    this.navigationData =  await response.json();
+    this.navigationData = await response.json();
 
     await this.requestUpdate(); // Wait for Lit to update the DOM with new data
   }
 
   render(): TemplateResult {
     return html`
-      <nav class="jr-navigation">
+      <nav class="jr-navigation" style="width: 150px; display: block;">
         <jr-navigation-list theme="${this.theme}"
                             .navigationData="${this.navigationData}">
         </jr-navigation-list>
