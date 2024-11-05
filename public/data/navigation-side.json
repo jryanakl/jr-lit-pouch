@@ -1,0 +1,95 @@
+[
+  {
+    "header": "Home",
+    "items": [
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__home",
+        "label": "Overview",
+        "route_view_selector": "jr-home-page__overview",
+        "url": "/home"
+      }
+    ]
+  },
+  {
+    "header": "Components",
+    "items": [
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__breadcrumb",
+        "label": "Breadcrumb",
+        "route_view_selector": "jr-components-page__breadcrumb",
+        "scroll": true,
+        "url": "/components"
+      },
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__button",
+        "label": "Button",
+        "route_view_selector": "jr-components-page__button",
+        "scroll": true,
+        "url": "/components"
+      },
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__card",
+        "label": "Card",
+        "route_view_selector": "jr-components-page__card",
+        "scroll": true,
+        "url": "/components"
+      },
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__table",
+        "label": "Table",
+        "route_view_selector": "jr-components-page__table",
+        "scroll": true,
+        "url": "/components"
+      },
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__tree",
+        "label": "Tree Menu",
+        "route_view_selector": "jr-components-page__tree",
+        "scroll": true,
+        "url": "/components"
+      }
+    ]
+  },
+  {
+    "header": "Data",
+    "items": [
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__pouchdb",
+        "label": "PouchDB",
+        "route_view_selector": "jr-data-page__pouchdb",
+        "url": "/data"
+      }
+    ]
+  },
+  {
+    "header": "Tooling",
+    "items": [
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__vite",
+        "label": "Vite",
+        "route_view_selector": "jr-tooling-page__vite",
+        "url": "/tooling"
+      }
+    ]
+  },
+  {
+    "header": "Web APIs",
+    "items": [
+      {
+        "icon": "chevron_right",
+        "id": "jr-navigation__audio",
+        "label": "Audio",
+        "route_view_selector": "jr-web-apis-page__audio",
+        "url": "/web-apis"
+      }
+    ]
+  }
+]

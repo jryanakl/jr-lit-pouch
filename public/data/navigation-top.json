@@ -1,0 +1,13 @@
+[
+  {
+    "items": [
+      {
+        "id": "jr-navigation__crazy",
+        "label": "Let's Get Crazy!",
+        "route_view_selector": "jr-crazy-page__options",
+        "scroll": true,
+        "url": "/crazy"
+      }
+    ]
+  }
+]

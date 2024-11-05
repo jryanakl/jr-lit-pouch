@@ -61,7 +61,7 @@ export class JrTree extends LitElement {
     }
     
     .jr-tree {
-      font-size: 14px;
+      font-size: var(--base-font-size);
     }
 
     .jr-tree__list {

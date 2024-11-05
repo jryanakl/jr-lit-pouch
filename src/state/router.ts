@@ -1,5 +1,8 @@
+import { NavigationDataRootNode } from '../ui/navigation/navigation.js';
+import JrLogger from '../utils/logger.js';
+
 export default class Router {
-  private route = window.location.pathname;
+  private url = window.location.pathname;
 
   constructor() {
     window.addEventListener("popstate", (event) => {
@@ -7,92 +10,109 @@ export default class Router {
     });
   }
 
-  initialize(shadowRoot: ShadowRoot | null, linkElementSelector: string) {
+  public handleLinkClick(event: Event | PointerEvent) {
+    event.preventDefault();
+
+    const anchorElement: HTMLAnchorElement = (event?.currentTarget as HTMLAnchorElement);
+    const url = anchorElement.getAttribute('data-url');
+    const route_view_selector = anchorElement.getAttribute('data-route-view-selector');
+    const scroll: boolean = anchorElement.getAttribute('data-scroll') === "true" ? true : false;
+
+    if (route_view_selector) {
+      this.switchRoute(url, route_view_selector, scroll);
+    }
+  }
+  
+  initialize(shadowRoot: ShadowRoot | null) {
     if (!shadowRoot) {
-      console.error("Shadow root is null.");
       return;
     }
 
-    shadowRoot.querySelectorAll(linkElementSelector).forEach((anchor) => {
-      anchor.addEventListener("click", (event) => this.handleLinkClick(event));
-    });
-
     if (window?.app?.router) {
-      this.navigate(this.route, false);
+      this.navigate(this.url, false);
     } else {
       console.error("Router instance does not exist on window.app");
     }
   }
 
-  private handleLinkClick(event: Event) {
-    event.preventDefault();
-
-    const closestAnchorElement = (event.target as HTMLElement)?.closest("a");
-    const targetUrl = closestAnchorElement?.getAttribute("href");
-
-    if (targetUrl) {
-      this.switchRoute(targetUrl)
-    };
-  }
-
-  navigate(path: string, addToHistory = true) {
-    if (path !== this.route) {
-      if (addToHistory) history.pushState({ route: path }, "", path);
-      this.switchRoute(path);
-      this.route = path;
+  navigate(url: string, addToHistory = true) {
+    JrLogger.logMethod('navigate()', url);
+    
+    if (addToHistory) {
+      history.pushState({ route: url }, "", url);
     }
+
+    this.switchRoute(url);
+    this.url = url;
   }
 
-  private switchRoute(route: string) {
-    const isComponentsRoute = route === "/components";
-    const pageElement = this.getPageElement(route);
-    const mainContent = document.querySelector("main");
+  private createRouteViewElement(url: string): HTMLElement {
+    let routeViewElement: HTMLElement;
+  
+    switch (url) {
+      case "/":
+      case "/home":
+        routeViewElement = document.createElement("jr-home-page");
+        break;
+      case "/crazy":
+        routeViewElement = document.createElement("jr-crazy-page");
+        break;
+      case "/components":
+        routeViewElement = document.createElement("jr-components-page");
+        break;
+      case "/data":
+        routeViewElement = document.createElement("jr-data-page");
+        break;
+      case "/tooling":
+        routeViewElement = document.createElement("jr-tooling-page");
+        break;
+      case "/web-apis":
+        routeViewElement = document.createElement("jr-web-apis-page");
+        break;
+      default:
+        if (url.startsWith("/jr-")) {
+          routeViewElement = document.createElement("section");
+          routeViewElement.dataset.productId = url.split("-").pop() || "";
+        } else {
+          routeViewElement = document.createElement("aside");
+        }
+        break;
+    }
+  
+    return routeViewElement;
+  }
+  
+  private switchRoute(url: any, route_view_selector: string = '/', scroll: boolean = false) {
+    const mainElement = document.querySelector("main");
 
-    if (mainContent && pageElement) {
-      mainContent.innerHTML = "";
-      mainContent.appendChild(pageElement);
+    if (mainElement) {
+      mainElement.innerHTML = "";
+      const routeViewElement: HTMLElement = this.createRouteViewElement(url);
+      
+      if (routeViewElement) {
+        mainElement.appendChild(routeViewElement);
+      }
 
-      if (isComponentsRoute) {
-        this.scrollToHeading(route);
+      if (scroll) {
+        this.scrollToRouteView(route_view_selector, scroll);
       } else {
         window.scrollTo(0, 0);
       }
     }
   }
 
-  private getPageElement(route: string): HTMLElement | null {
-    switch (route) {
-      case "/":
-      case "/intro":
-        return document.createElement("jr-intro-page");
-      case "/components":
-        return document.createElement("jr-components-page");
-      case "/data":
-        return document.createElement("jr-data-page");
-      default:
-        if (route.startsWith("/tooling")) {
-          const pageElement = document.createElement("jr-tooling-page");
-          pageElement.dataset.productId = route.split("-").pop() || "";
-          return pageElement;
-        }
-        return null;
-    }
-  }
+  private scrollToRouteView(route_view_selector: string, scroll?: boolean) {
+    if (scroll && route_view_selector) {
+      const routeViewElement = document.getElementById(route_view_selector);
 
-  private scrollToHeading(path: string) {
-    // Define the mapping from path to h3 ID
-    const headingMap: Record<string, string> = {
-      "/components": "table-header", // Example for Tree Menu
-      // Add mappings for other sections as needed
-    };
-  
-    const headingId = headingMap[path];
-    if (headingId) {
-      const headingElement = document.getElementById(headingId);
-      if (headingElement) {
+      if (routeViewElement) {
         const yOffset = -80; // Adjust for any fixed headers, if necessary
-        const y = headingElement.getBoundingClientRect().top + window.scrollY + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        const y = routeViewElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
       }
     }
   }

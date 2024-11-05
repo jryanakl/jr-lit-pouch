@@ -8,10 +8,7 @@
 
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./src/ui/index.css" />
-
-    <!-- App -->
-    <script type="module" src="/src/main.ts"></script>
+    <link rel="stylesheet" href="./src/ui/styles/index.css" />
 
     <!-- Data -->
     <script type="module" src="/src/data/db.ts"></script>
@@ -19,32 +16,44 @@
     <!-- State -->
     <script type="module" src="/src/state/router.ts"></script>
 
+    <!-- Utils -->
+    <script type="module" src="/src/utils/logger.ts"></script>
+    
+    <!-- App Main -->
+    <script type="module" src="/src/main.ts"></script>
+
     <!-- UI Components -->
-    <script type="module" src="/src/ui/logo.ts"></script>
-    <script type="module" src="/src/ui/navbar.ts"></script>
-    <script type="module" src="/src/ui/footer.ts"></script>
+    <script type="module" src="/src/ui/audio.ts"></script>
+    <script type="module" src="/src/ui/breadcrumb.ts"></script>
     <script type="module" src="/src/ui/button.ts"></script>
+    <script type="module" src="/src/ui/card.ts"></script>
+    <script type="module" src="/src/ui/footer.ts"></script>
+    <script type="module" src="/src/ui/logo.ts"></script>
+    <script type="module" src="/src/ui/navigation/navigation.ts"></script>
+    <script type="module" src="/src/ui/navigation/navigation-list.ts"></script>
+
     <script type="module" src="/src/ui/table.ts"></script>
     <script type="module" src="/src/ui/tree.ts"></script>
 
     <!-- Page Components -->
-    <script type="module" src="/src/pages/intro-page.ts"></script>
     <script type="module" src="/src/pages/components-page.ts"></script>
+    <script type="module" src="/src/pages/crazy-page.ts"></script>
     <script type="module" src="/src/pages/data-page.ts"></script>
+    <script type="module" src="/src/pages/home-page.ts"></script>
     <script type="module" src="/src/pages/tooling-page.ts"></script>
+    <script type="module" src="/src/pages/web-apis-page.ts"></script>
   </head>
 
-  <body class="body">
-    <header class="header">
+  <body>
+    <header class=".header">
       <jr-logo></jr-logo>
+      <jr-navigation theme="top"></jr-navigation>
     </header>
-    <nav class="nav">
-      <jr-navbar></jr-navbar>
-    </nav>
-    <main class="main">
+    <jr-navigation theme="side"></jr-navigation>
+    <main>
       <jr-main class="jr-main"></jr-main>
     </main>
-    <footer class="footer">
+    <footer>
       <jr-footer></jr-footer>
     </footer>
   </body>

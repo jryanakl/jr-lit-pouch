@@ -9,22 +9,34 @@ export class JrButton extends LitElement {
   @property({ type: String }) buttonText = '';
   @property({ type: String }) buttonRole: 'button' | 'link' = 'button'; // Valid ARIA roles
   @property({ type: String }) buttonType: 'button' | 'submit' | 'reset' | 'menu' = 'button';
-  @property({ type: Boolean }) rounded = false;
   @property({ type: Boolean }) darkMode = false;
   @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean }) rounded = false;
+  @property({ type: Boolean }) stretch = false;
+  @property({ type: String }) theme: 'sm' | 'default' = 'default'; // New theme property
 
   static styles = css`
     .jr-button {
       background-color: #1a1a1a;
-      border: 1px solid var(--default-border-color);
+      border: 1px solid var(--border-color-default);
       cursor: pointer;
       font-family: inherit;
       font-size: 1em;
       font-weight: 500;
       height: 40px;
-      min-width: 130px;
       padding: 0.6em 1.2em;
       transition: border-color 0.25s;
+    }
+
+    /* Style for the small theme */
+    .jr-button--sm {
+      font-size: 0.775em;
+      height: 32px;
+      padding: 0.3em 0.9em;
+    }
+
+    .jr-button--stretch {
+      width: 100%;
     }
 
     .jr-button--hover:hover {
@@ -56,6 +68,10 @@ export class JrButton extends LitElement {
       cursor: not-allowed;
       opacity: 0.5;
     }
+    
+    .jr-button__text {
+      white-space: nowrap;
+    }
   `;
 
   private handleClick(event: Event) {
@@ -63,6 +79,7 @@ export class JrButton extends LitElement {
       event.preventDefault();
       return;
     }
+    // Emit click event
     this.dispatchEvent(new CustomEvent('jr-button-click', { bubbles: true, composed: true }));
   }
 
@@ -71,16 +88,24 @@ export class JrButton extends LitElement {
       <button
         class="
           jr-button 
-          ${this.rounded ? 'jr-button--rounded' : ''} 
+          ${this.theme === 'sm' ? 'jr-button--sm' : ''} 
           ${this.darkMode ? 'jr-button--dark' : ''} 
           ${this.disabled ? 'jr-button--disabled' : 'jr-button--hover'}
+          ${this.rounded ? 'jr-button--rounded' : ''}
+          ${this.stretch ? 'jr-button--stretch' : ''}
         "
         role="${this.buttonRole}"
         type="${this.buttonType}"
         ?disabled="${this.disabled}"
         @click="${this.handleClick}"
       >
-        <slot>${this.buttonText}</slot>
+        <span class="jr-button__text">
+          <!-- The <slot /> element serves as a placeholder where you can insert external content into your custom element -->
+          <!-- Without slot, you would display only the default buttonText specified in your component, limiting flexibility -->
+          <slot class="jr-button__slot">
+            ${this.buttonText ? this.buttonText : 'Default'}
+          </slot>
+        </span>
       </button>
     `;
   }

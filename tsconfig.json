@@ -1,55 +1,50 @@
 {
+  // Transpiling Lit with Typescript,
+  // When compiling your code from TypeScript to JavaScript, we recommend targeting ES2017 with Node.js module resolution.
+  // @link: https://lit.dev/docs/v1/tools/publish/
   "compilerOptions": {
-    // New
-    "outDir": "./dist", // Output directory for .js files
-    "rootDir": "./src", // Root directory of your TypeScript files
-    "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext", // Add this option
+    
+    // This being set as `'module': 'NodeNext'`configures TypeScript to use the Node.js module system 
+    // that is based on ECMAScript modules (ESM) for compatibility with Node.js ES module support. 
+    // NodeNext is helpful when working with both CommonJS and ES module codebases.
+    // If this were instead set to "module": "CommonJS", which is standard for Node.js,
+    // Imports and exports will use `require` and `module.exports`
+    "module": "CommonJS",
+    
+    // This "outDir": "./dist" specifies the Output directory for the compiled .js files
+    "outDir": "./dist",
+    
+    // This "rootDir": "./src" specifies the Root directory of your TypeScript files
+    "rootDir": "./src",
+    
+    // TypeScript compiles code to ES2020, supporting newer JavaScript features
+    "target": "ES2017",
+    
+    // Specifies a module resolution strategy that’s compatible with both Node.js CommonJS and ES module formats. 
+    // This is better suited for hybrid projects with both module types.
+    // If this were instead set to "moduleResolution": "Node" instead,
+    // It would use Node’s module resolution algorithm, compatible with CommonJS modules.
+    "moduleResolution": "Node",
+    
+    // With "noUnusedLocals": false and "noUnusedParameters": false,
+    // This allows unused parameters and local variables in the code without causing errors.
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    
+    
+    // To use Lit decorators with TypeScript, 
+    // we must enable the experimentalDecorators compiler option.
+    // @link: https://lit.dev/docs/v1/components/decorators/
     "experimentalDecorators": true,
+    
+    
     "useDefineForClassFields": false,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-
-    // Old
-    // "target": "ES2020",
-    // "experimentalDecorators": true,
-    // "useDefineForClassFields": false,
-    // "module": "ESNext",
-    // "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    // "skipLibCheck": true,
-    // "strict": true,
-
-    // Old
-    // /* Bundler mode */
-    // "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
-    // "moduleResolution": "Bundler",
-    // "allowImportingTsExtensions": true,
-    // "isolatedModules": true,
-    // "moduleDetection": "force",
-    // "noEmit": true,
-
-    // Old
-    /* Node mode */
-    // "esModuleInterop": true,
-    // "allowSyntheticDefaultImports": true,
-    // "moduleResolution": "Node", // Ensure this is set to Node
-
-    // Old
-    /* Linting */
-    // "strict": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "strict": true
   },
   "include": ["src"]
 }

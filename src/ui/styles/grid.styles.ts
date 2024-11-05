@@ -7,12 +7,16 @@ export const gridStyles = css`
   }
 
   .jr-grid__block-sm {
-    min-height: 200px;
-    border-bottom: 1px dashed gray;
+    border-bottom: 0.5px dashed var(--border-color-default);
     padding: 24px;
   }
 
   .jr-grid__block--no-pad-btm {
     padding-bottom: 0;
+  }
+
+  .jr-grid__list {
+    display: column;
+    gap: 0.123rem;
   }
 `;

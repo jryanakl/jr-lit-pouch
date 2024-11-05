@@ -1,0 +1,96 @@
+:root {
+  /* Colors */
+  --background-color: #242424;                  /* Main Background */
+  --border-color-default: rgb(71, 71, 71);      /* Border Default */
+  --stage-background-color: #131313;            /* Stage/Section Background */
+  --primary-blue: #52b1fb;                      /* Primary Button Color */
+  --lighter-blue: #9ef8f9;                      /* Lighter Button Color */
+  --light-gray: #383838;                        /* Light Gray Color */
+  --light-blue: #3ce9ff;                        /* Light Button Color */
+  --dark-blue: #283199;                         /* Dark Button Color */
+  --dark-gray: #1e1e1e;                         /* Dark Gray Color */
+  --primary-black: #000;                        /* Primary Black */
+  --purple-blue: #646cff;                       /* Purple Button Color */
+  --shadow-color: rgb(0 0 0 / 10%);             /* Shadow Color */
+  --color-white: rgba(255, 255, 255, 1);        /* Base White */
+  --soft-white: rgba(255, 255, 255, 0.85);      /* Softened White */
+  --dim-white: rgba(207, 206, 206, 0.85);       /* Softened White */
+
+  /* Typography */
+  --base-font-size: 14px;                        /* Standard Font Size */
+  --sm-font-size: 12px;                          /* Small Font Size */
+  --code-font-size: 12px;                        /* Code Font Size */
+  --base-line-height: 1.5;                       /* Standard Line Height */
+  --text-color: #878787;                       /* Text Color */
+  --text-color-lighter: #8f8f97;               /* Lighter Text Color */
+  --text-color-lightest: #aaaaaa;              /* Lightest Text Color */
+  
+  background-color: var(--background-color);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+
+  color-scheme: light dark;
+  color: var(--soft-white);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidenav main"
+    "footer footer";
+  grid-template-columns: max-content auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid orange; */
+  grid-area: header;
+  border-bottom-color: var(--border-color-default);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+
+  padding-bottom: 0.33rem;
+  /* padding: 0px 24px; */
+  /* border-bottom: 1px solid var(--border-color-default); */
+  /* box-sizing: border-box; */
+  /* box-shadow: 0 1px 5px 0 var(--box-shadow); */
+}
+
+jr-navigation[theme="side"] {
+  max-width: 300px;
+  background: var(--background-color);
+  border-right-color: var(--border-color-default);
+  border-right-style: solid;
+  border-right-width: 1px;
+  grid-area: sidenav;
+  padding: 1rem;
+}
+
+main {
+  background: var(--stage-background-color);
+  grid-area: main;
+  padding: 3.33rem;
+}
+
+main > :first-child {
+  width: 100%;
+}
+
+footer {
+  grid-area: footer;
+  border-top-color: var(--border-color-default);
+  border-top-style: solid;
+  border-top-width: 1px;
+  padding: 8px;
+}

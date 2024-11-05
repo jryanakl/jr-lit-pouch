@@ -2,11 +2,15 @@ import { Buffer } from 'buffer';
 import process from 'process';
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { gridStyles } from './ui/grid.styles.js';
-import Router from  './state/router.js'
-import { JrIntroPage } from './pages/intro-page.js';
-import { JrDataPage } from './pages/data-page.js';
+import { gridStyles } from './ui/styles/grid.styles.js';
+import Router from  './state/router.js';
+
+// Pages
+import { JrHomePage } from './pages/home-page.js';
+import { JrCrazyPage } from './pages/crazy-page.js';
 import { JrComponentsPage } from './pages/components-page.js';
+import { JrDataPage } from './pages/data-page.js';
+import { JrWebApisPage } from './pages/web-apis-page.js';
 import { JrToolingPage } from './pages/tooling-page.js';
 
 window.Buffer = Buffer;
@@ -32,52 +36,17 @@ export class JrMain extends LitElement {
     gridStyles,
     css`
       :host {
+        border: 1px dashed var(--border-color-default);
         max-width: 1280px;
         margin: 0 auto;
         text-align: left;
-      }
-
-      h1 {
-        color: var(--white-color);
-        font-size: 3rem;
-        margin: 0 0 12px 0;
-      }
-
-      h2 {
-        border-bottom-color: var(--border-color);
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        padding-bottom: 16px;
-        font-size: 1.75rem;
-        margin: 0;
-      }
-
-      .jr-main__tool-logo {
-        height: 6em;
-        padding: 1.5em;
-        will-change: filter;
-        transition: filter 300ms;
-      }
-
-      .jr-main__tool-logo:hover {
-        filter: drop-shadow(0 0 2em #646cffaa);
-      }
-
-      .jr-main__tool-logo.lit:hover {
-        filter: drop-shadow(0 0 2em #325cffaa);
-      }
-
-      .card {
-        padding: 2em;
       }
     `
   ];
 
   render() {
     return html`
-      <section class="jr-grid">
-        <jr-intro-page></jr-intro-page>
-      </section>
+      <jr-home-page></jr-home-page>
     `
   }
 }
@@ -85,9 +54,11 @@ export class JrMain extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'jr-main': JrMain,
-    'jr-intro-page': JrIntroPage,
-    'jr-data-page': JrDataPage,
+    'jr-home-page': JrHomePage,
+    'jr-crazy-page': JrCrazyPage,
     'jr-components-page': JrComponentsPage,
+    'jr-data-page': JrDataPage,
+    'jr-web-apis-page': JrWebApisPage,
     'jr-tooling-page': JrToolingPage,
   }
 }
