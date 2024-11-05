@@ -50,7 +50,9 @@ export class JrNavigationList extends LitElement {
       }
 
       .jr-navigation-list__header {
-        font-size: var(--base-font-size);
+        font-size: 1.01rem;
+        font-weight: 600;
+        margin-bottom: 2px;
       }
     `
   ];
